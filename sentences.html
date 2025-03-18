@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Глаголы в нужной форме</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Tektur", sans-serif;
+            margin: 20px;
+        }
+        .question {
+            margin-bottom: 15px;
+        }
+        input {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>Заполните пропуски правильной формой глагола</h2>
+    <div id="questions"></div>
+    
+    <script>
+        const questions = [
+            { text: "She __ (<span class='verb'>to go</span>) to school every day.", answer: "goes" },
+            { text: "Yesterday, he __ (<span class='verb'>to visit</span>) his grandmother.", answer: "visited" },
+            { text: "Tomorrow, they __ (<span class='verb'>to travel</span>) to London.", answer: "will travel" },
+            { text: "I __ (<span class='verb'>to eat</span>) breakfast at 7 AM every morning.", answer: "eat" },
+            { text: "Last week, she __ (<span class='verb'>to buy</span>) a new dress.", answer: "bought" },
+            { text: "He usually __ (<span class='verb'>to watch</span>) TV in the evening.", answer: "watches" },
+            { text: "When I was a child, we __ (<span class='verb'>to live</span>) in a small village.", answer: "lived" },
+            { text: "Next summer, we __ (<span class='verb'>to go</span>) on vacation to Spain.", answer: "will go" }
+        ];
+
+        function loadQuestions() {
+            const container = document.getElementById("questions");
+            container.innerHTML = "";
+            let selectedQuestions = [];
+            while (selectedQuestions.length < 3) {
+                let randomIndex = Math.floor(Math.random() * questions.length);
+                if (!selectedQuestions.includes(randomIndex)) {
+                    selectedQuestions.push(randomIndex);
+                }
+            }
+            selectedQuestions.forEach((index, i) => {
+                let q = questions[index];
+                let div = document.createElement("div");
+                div.className = "question";
+                div.innerHTML = `${i + 1}. ${q.text.replace("__", `<input type='text' id='q${i}' onkeypress='handleKeyPress(event, ${i}, ${index})'>`)} <span id='result${i}'></span>`;
+                container.appendChild(div);
+            });
+        }
+
+        function handleKeyPress(event, index, questionIndex) {
+            if (event.key === "Enter") {
+                checkAnswer(index, questionIndex);
+            }
+        }
+
+        function checkAnswer(index, questionIndex) {
+            let input = document.getElementById(`q${index}`);
+            let resultSpan = document.getElementById(`result${index}`);
+            let questionDiv = document.querySelectorAll(".question")[index];
+            let correctAnswer = questions[questionIndex].answer;
+
+            if (input.value.trim().toLowerCase() === correctAnswer) {
+                resultSpan.textContent = "✓ Правильно!";
+                resultSpan.className = "correct";
+
+                let textNode = document.createTextNode(` ${correctAnswer}`);
+                questionDiv.replaceChild(textNode, input);
+
+                let verbSpan = questionDiv.querySelector(".verb");
+                if (verbSpan) {
+                    let verbText = verbSpan.textContent.replace(/[()]/g, '').trim();
+                    verbSpan.parentNode.replaceChild(document.createTextNode(' '), verbSpan);
+                }
+
+                questionDiv.innerHTML = questionDiv.innerHTML.replace(/\(\s*([a-zA-Z\s]+)\s*\)/g, '$1');
+            } else {
+                resultSpan.textContent = `✗ Ошибка! Правильный ответ: ${correctAnswer}`;
+                resultSpan.className = "incorrect";
+            }
+        }
+
+
+        window.onload = loadQuestions;
+    </script>
+</body>
+</html>

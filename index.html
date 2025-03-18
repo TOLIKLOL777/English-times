@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English_times</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index_style.css">
+</head>
+<body>
+    <h1 class="title">Выберите тему тренировки</h1>
+    <ul id="btn_list" class="list">
+        <button class="button" onclick="window.location.href='signal_words.html';">Сигнальные слова</button>
+        <button class="button" onclick="window.location.href='verbs.html';">Глаголы</button>
+        <button class="button" onclick="window.location.href='sentences.html';">Предложения</button>
+    </ul>
+    <footer>
+        <button id="toggleButton" class="footer__button">Grammar hint</button>
+        <table id="rules">
+            <tr>
+                <th> </th>
+                <th>Present Simple</th>
+                <th>Past Simple</th>
+                <th>Future Simple</th>
+            </tr>
+            <tr>
+                <td>Утвердительное</td>
+                <td>V / V+s</td>
+                <td>Ved / V²</td>
+                <td>shall / will + V</td>
+            </tr>
+            <tr>
+                <td>Вопросительное</td>
+                <td>Do / Does + V?</td>
+                <td>Did + V?</td>
+                <td>Am / Is / Are + going to V?</td>
+            </tr>
+            <tr>
+                <td>Отрицательное</td>
+                <td>Don't / Doesn't + V</td>
+                <td>Didn't + V</td>
+                <td>shall / will + not + V</td>
+            </tr>
+            <tr>
+                <td>Маркерные слова</td>
+                <td>every day, always, usually, sometimes, seldom, rarely, never, on Mondays, at weekends</td>
+                <td>yesterday, last month, 2 days ago, in 1990, then, when I was..., how long ago...?</td>
+                <td>tomorrow, tonight, next week, in a month, in two days, soon</td>
+            </tr>
+        </table>
+    </footer>
+    <script>
+        document.getElementById("toggleButton").addEventListener("click", hide_hint)
+        function hide_hint() {
+            let table = document.getElementById("rules");
+            let btn_list = document.getElementById("btn_list");
+            if (table.style.display === "" ||  table.style.display == "none") {
+                table.style.display = "block";
+                btn_list.style.paddingBottom = '300px';
+            } else {
+                table.style.display = "none";
+                btn_list.style.paddingBottom = '600px';
+            }
+        };
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: rgb(235, 235, 165);
+    font-family: "Tektur", sans-serif;
+}
+
+.title{
+    font-family: Tektur;
+    padding-left: calc(50% - 600px);
+    padding-right: calc(50% - 600px);
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    padding-bottom: 80px;
+}
+
+.list{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style-type: none;
+    flex-direction: column;
+    align-items: stretch;
+    padding-left: 800px;
+    padding-right: 800px;
+    padding-bottom: 600px;
+}
+
+.button {
+    font-family: Tektur;
+    position: relative;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: #ebc85e;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    box-shadow:0 4px 15px rgb(226 129 34 / 30%);
+}   
+
+.button:hover {
+    background: #c5a545;
+    box-shadow: 0 6px 20px rgba(179, 130, 90, 0.6);
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
+.footer__button {
+    display: flex;
+    font-family: Tektur;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(118, 214, 238);
+    text-align: center;
+    background: #ffffff;
+    border: 2px solid rgb(0, 247, 255);
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    box-shadow:0 4px 15px rgba(155, 197, 211, 0.3);
+    margin-bottom: 70px;
+    margin-left: 50px;
+}
+
+.footer__button:hover {
+    background: #e6e6e6;
+    box-shadow: 0 6px 20px rgba(155, 197, 211, 0.3);
+}
+
+.footer__button:active {
+    transform: scale(0.95);
+}
+
+table {
+    display: none;
+    padding-left: 200px;
+    padding-right: 200px;
+    border-collapse: collapse;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+th {
+    background-color: lightgray;
+}
+
+td {
+    background-color: white;
+}
