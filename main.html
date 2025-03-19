@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Simple Tenses Exam</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .answer-input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 5px;
+            text-align: center;
+        }
+        .option-container {
+            margin-top: 10px;
+        }
+        .option-button {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .option-button:disabled {
+            background-color: #ccc;
+            cursor: default;
+        }
+        .feedback {
+            font-size: 18px;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            background: #f1f1f1;
+            display: none;
+        }
+        .status-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .score, .counter {
+            font-size: 18px;
+            text-align: left;
+            padding: 10px;
+            border-radius: 5px;
+            background: #f1f1f1;
+        }
+        .restart-button, .next-button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            display: none;
+        }
+        input {
+            padding: 7px;
+            font-size: 16px;
+            border-radius: 5px;
+            outline: none;
+            margin-left: 5px;
+            text-align: center;
+        }
+        .correct {
+            color: #4caf50;
+            font-weight: bold;
+        }
+        .incorrect {
+            color: #ff4b4b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>English Simple Tenses Exam</h2>
+        <div id="question-container"></div>
+        <div id="feedback" class="feedback"></div>
+        <div class="status-container">
+            <div id="counter" class="counter"></div>
+            <div id="score" class="score">Score: 0</div>
+        </div>
+        <button class="next-button" onclick="nextQuestion()">Next</button>
+        <button class="restart-button" onclick="startExam()">Restart Exam</button>
+    </div>
+    
+    <script>
+        const questions = [
+            { type: 'verb', text: 'go', correct: 'present' },
+            { type: 'verb', text: 'went', correct: 'past' },
+            { type: 'sentence', text: 'Yesterday, he __ (to visit) his grandmother.', correct: 'visited' },
+            { type: 'signal', text: 'always', correct: 'present' },
+            { type: 'signal', text: 'last year', correct: 'past' },
+            { type: 'sentence', text: 'Tomorrow, they __ (to travel) to London.', correct: 'will travel' }
+        ];
+
+        let currentQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let answered = false;
+
+        function startExam() {
+            score = 0;
+            currentIndex = 0;
+            document.getElementById('score').innerText = `Score: ${score}`;
+            document.getElementById('counter').innerText = '';
+            document.getElementById('feedback').style.display = 'none';
+            document.querySelector('.restart-button').style.display = 'none';
+            document.querySelector('.next-button').style.display = 'none';
+            currentQuestions = [...questions].sort(() => Math.random() - 0.5).slice(0, 5);
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            answered = false;
+            const container = document.getElementById('question-container');
+            container.innerHTML = '';
+            document.getElementById('counter').innerText = `Question ${currentIndex + 1} of ${currentQuestions.length}`;
+            document.getElementById('feedback').style.display = 'none';
+            const q = currentQuestions[currentIndex];
+            const div = document.createElement('div');
+            console.log(q.type,q.text)
+            div.className = 'question';
+            if (q.type === 'sentence') {
+                div.innerHTML = `${currentIndex + 1}. ` + q.text.replace('__', `<input type='text' id='answer' onkeypress='handleKeyPress(event)' autocomplete='off'>`);
+                container.appendChild(div);
+            } else {
+                div.innerHTML = `${currentIndex + 1}. ${q.text}`;
+                const optionContainer = document.createElement('div');
+                optionContainer.className = 'option-container';
+                ['present', 'past', 'future'].forEach(tense => {
+                    const button = document.createElement('button');
+                    button.className = 'option-button';
+                    button.innerText = tense.charAt(0).toUpperCase() + tense.slice(1);
+                    button.onclick = () => checkChoice(tense);
+                    optionContainer.appendChild(button);
+                });
+                div.appendChild(optionContainer);
+            }
+            container.appendChild(div);
+        }
+        
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                checkAnswer();
+            }
+        }
+
+        function checkAnswer() {
+            const q = currentQuestions[currentIndex];
+            let input = document.getElementById('answer');
+            let correctAnswer = q.correct;
+            let userAnswer = input.value.trim().toLowerCase();
+            let questionDiv = document.querySelector('.question');
+            let feedback = document.getElementById('feedback');
+            
+            feedback.style.display = 'block';
+            if (userAnswer === correctAnswer) {
+                score += 10;
+                feedback.innerText = 'Ответ правильный!';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.innerText = `Ответ неправильный! Правильный ответ: ${correctAnswer}`;
+                feedback.className = 'feedback incorrect';
+            }
+            
+            let textNode = document.createTextNode(` ${correctAnswer}`);
+            questionDiv.replaceChild(textNode, input);
+            questionDiv.innerHTML = questionDiv.innerHTML.replace(/\(.*?\)/g, '');
+            document.getElementById('score').innerText = `Score: ${score}`;
+            document.querySelector('.next-button').style.display = 'block';
+        }
+
+        function checkChoice(choice) {
+            if (answered) return;
+            answered = true;
+            document.querySelectorAll('.option-button').forEach(btn => btn.disabled = true);
+            let feedback = document.getElementById('feedback');
+            feedback.style.display = 'block';
+            
+            if (choice === currentQuestions[currentIndex].correct) {
+                score += 10;
+                feedback.innerText = 'Ответ правильный!';
+            } else {
+                feedback.innerText = `Ответ неправильный! Правильный ответ: ${currentQuestions[currentIndex].correct}`;
+            }
+            document.getElementById('score').innerText = `Score: ${score}`;
+            document.querySelector('.next-button').style.display = 'block';
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            document.querySelector('.next-button').style.display = 'none';
+            renderQuestion();
+        }
+
+        startExam();
+    </script>
+</body>
+</html>

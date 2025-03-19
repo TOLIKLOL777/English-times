@@ -10,15 +10,15 @@
     <link rel="stylesheet" href="index_style.css">
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='menu.html';">Back</button>
+    <button onmouseover="playSound()" class="back-button" onclick="window.location.href='menu.html';">Back</button>
     <h1 class="title">Choose the topic to train</h1>
     <ul id="btn_list" class="list">
-        <button class="button" onclick="window.location.href='signal_words.html';">Signal words</button>
-        <button class="button" onclick="window.location.href='verbs.html';">Verbs</button>
-        <button class="button" onclick="window.location.href='sentences.html';">Sentences</button>
+        <button onmouseover="playSound()" class="button" onclick="window.location.href='signal_words.html';">Signal words</button>
+        <button onmouseover="playSound()" class="button" onclick="window.location.href='verbs.html';">Verbs</button>
+        <button onmouseover="playSound()" class="button" onclick="window.location.href='sentences.html';">Sentences</button>
     </ul>
     <footer>
-        <button id="toggleButton" class="footer__button">Grammar hint</button>
+        <button onmouseover="playSound()" id="toggleButton" class="footer__button">Grammar hint</button>
         <table id="rules">
             <tr>
                 <th> </th>
@@ -52,19 +52,22 @@
             </tr>
         </table>
     </footer>
+    <audio id="hoverSound" src="btn_hover.mp3"></audio>
     <script>
-        document.getElementById("toggleButton").addEventListener("click", hide_hint)
-        function hide_hint() {
+        document.getElementById("toggleButton").addEventListener("click", function () {
             let table = document.getElementById("rules");
-            let btn_list = document.getElementById("btn_list");
-            if (table.style.display === "" ||  table.style.display == "none") {
-                table.style.display = "block";
-                btn_list.style.paddingBottom = '300px';
-            } else {
-                table.style.display = "none";
-                btn_list.style.paddingBottom = '600px';
-            }
-        };
+            let btnList = document.getElementById("btn_list");
+
+            let isHidden = table.style.display !== "block";
+            table.style.display = isHidden ? "block" : "none";
+            btnList.style.paddingBottom = isHidden ? "200px" : "500px";
+        });
+
+        function playSound() {
+            let audio = document.getElementById("hoverSound");
+            audio.currentTime = 0;
+            audio.play();
+        }
 
     </script>
 </body>
