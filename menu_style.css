@@ -4,11 +4,33 @@
 }
 
 body{
-    background-color: #f3e09f;
+    /* background-color: #f3e09f;
+    background-image: url(menu_bg.png);
+    background-size: cover; */
     font-family: "Tektur", sans-serif;
-    animation: fadeIn 1.5s ease-in-out;
+    background: linear-gradient(-45deg, #ffcc00, #ff6b6b, #8a2be2, #ffcc00);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+    background-attachment: fixed;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 .title{
     font-family: Tektur;
     padding-left: calc(50% - 400px);
@@ -26,7 +48,7 @@ body{
 
 h1 {
     font-size: 2em;
-    color: #333;
+    color: #000000;
     animation: pulse 2s infinite;
 }
 
@@ -56,8 +78,8 @@ h1 {
     padding: 12px 24px;
     font-size: 18px;
     font-weight: bold;
-    color: white;
-    background: #ffcc00;
+    color: rgb(0, 0, 0);
+    background: linear-gradient(252.01deg, #FFCC00 0%, #FFAA49 100%);
     border: none;
     cursor: pointer;
     overflow: hidden;
@@ -67,7 +89,7 @@ h1 {
 }   
 
 .button:hover {
-    background: #ffaa00;
+    background: linear-gradient(252.01deg, #E8BA04 0%, #CF8A3B 100%);
     transform: scale(1.1);
 }
 

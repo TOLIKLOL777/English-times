@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="index_style.css">
 </head>
-<body>
+<body onload="animateElements()">
     <button onmouseover="playSound()" class="back-button" onclick="window.location.href='menu.html';">Back</button>
     <h1 class="title">Choose the topic to train</h1>
     <ul id="btn_list" class="list">
@@ -54,13 +54,22 @@
     </footer>
     <audio id="hoverSound" src="btn_hover.mp3"></audio>
     <script>
+        function animateElements() {
+            document.body.style.opacity = '1';
+            setTimeout(() => {
+                document.querySelector('.title').classList.add('fade-in');
+                document.querySelector('.list').classList.add('fade-in');
+                document.querySelector('.footer__button').classList.add('fade-in');
+            }, 500);
+        }
+        
         document.getElementById("toggleButton").addEventListener("click", function () {
             let table = document.getElementById("rules");
             let btnList = document.getElementById("btn_list");
-
+            
             let isHidden = table.style.display !== "block";
             table.style.display = isHidden ? "block" : "none";
-            btnList.style.paddingBottom = isHidden ? "200px" : "500px";
+            btnList.style.paddingBottom = isHidden ? "100px" : "400px";
         });
 
         function playSound() {
@@ -68,7 +77,6 @@
             audio.currentTime = 0;
             audio.play();
         }
-
     </script>
 </body>
 </html>

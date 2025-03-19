@@ -198,7 +198,7 @@
 
             if (input.value.trim().toLowerCase() === correctAnswer) {
                 count += 1;
-                resultSpan.textContent = ' ' + "✓ Правильно!";
+                resultSpan.textContent = ' ' + "✓ Correct!";
                 resultSpan.className = "correct";
 
                 let textNode = document.createTextNode(` ${correctAnswer}`);
@@ -213,7 +213,7 @@
                 questionDiv.innerHTML = questionDiv.innerHTML.replace(/\(\s*([a-zA-Z\s]+)\s*\)/g, '$1');
             } else {
                 count += 1;
-                resultSpan.textContent = ' ' + `✗ Правильный ответ: ${correctAnswer}`;
+                resultSpan.textContent = ' ' + `✗ Correct answer: ${correctAnswer}`;
                 resultSpan.className = "incorrect";
 
                 let textNode = document.createTextNode(` ${correctAnswer}`);

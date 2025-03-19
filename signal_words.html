@@ -17,6 +17,12 @@
             font-family: 'Tektur', sans-serif;
             text-align: center;
             background-color: #f4f4f4;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
         }
         .container {
             display: flex;
@@ -114,7 +120,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="animateElements()">
     <button class="back-button button" onclick="window.location.href='index.html';">Back</button>
     <h1>Move words to the correct columns</h1>
     <div class="container">
@@ -161,6 +167,10 @@
             { text: "in two week", tense: "future" },
             { text: "in 2025", tense: "future" }
         ];
+
+        function animateElements() {
+            document.body.style.opacity = '1';
+        }
 
         function getRandomWords(count) {
             let shuffled = words.sort(() => 0.5 - Math.random());
