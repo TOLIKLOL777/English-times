@@ -11,6 +11,7 @@
             background-color: #f4f4f4;
         }
         .container {
+            display: none;
             max-width: 600px;
             margin: auto;
             background: white;
@@ -96,8 +97,13 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>English Simple Tenses Exam</h2>
+    <h2>English Simple Tenses Exam</h2>
+    <div id="start-screen" class="start-screen">
+        <h2>Добро пожаловать в English Simple Tenses Exam!</h2>
+        <p>В этом экзамене вам предстоит ответить на <b>5 вопросов</b>.</p>
+        <button class="btn" onclick="startExam()">Начать экзамен</button>
+    </div>
+    <div id="container" class="container">
         <div id="question-container"></div>
         <div id="feedback" class="feedback"></div>
         <div class="status-container">
@@ -131,6 +137,8 @@
             document.getElementById('feedback').style.display = 'none';
             document.querySelector('.restart-button').style.display = 'none';
             document.querySelector('.next-button').style.display = 'none';
+            document.getElementById('container').style.display = 'block';
+            document.getElementById('start-screen').style.display = 'none';
             currentQuestions = [...questions].sort(() => Math.random() - 0.5).slice(0, 5);
             renderQuestion();
         }
@@ -219,8 +227,6 @@
             document.querySelector('.next-button').style.display = 'none';
             renderQuestion();
         }
-
-        startExam();
     </script>
 </body>
 </html>
