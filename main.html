@@ -205,8 +205,10 @@
             if (choice === currentQuestions[currentIndex].correct) {
                 score += 10;
                 feedback.innerText = 'Ответ правильный!';
+                feedback.className = 'feedback correct';
             } else {
                 feedback.innerText = `Ответ неправильный! Правильный ответ: ${currentQuestions[currentIndex].correct}`;
+                feedback.className = 'feedback incorrect';
             }
             document.getElementById('score').innerText = `Score: ${score}`;
             document.querySelector('.next-button').style.display = 'block';
