@@ -13,6 +13,17 @@
             text-align: center;
             padding: 20px;
         }
+        .back-button {
+            display: flex;
+            text-align: start;
+            font-family: Tektur;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s;
+        }
         .word {
             font-size: 24px;
             font-weight: bold;
@@ -26,7 +37,10 @@
             cursor: pointer;
             border: none;
             transition: background 0.3s;
+            position: relative; /* Нужно для корректного позиционирования фейерверков */
         }
+        .option-button:not(:disabled):hover { background-color: #ddd; }
+        
         .correct {
             background-color: rgb(108, 248, 108);
         }
@@ -45,31 +59,58 @@
             cursor: pointer;
             margin-top: 20px;
         }
+
+        /* Фейерверки */
+        .firework {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background-color: greenyellow;
+            border-radius: 50%;
+            opacity: 1;
+            animation: explode 0.6s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0.5);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
+    <button class="back-button" onclick="window.location.href='index.html';">Back</button>
     <h1>Тренировка глаголов в разных формах</h1>
     <p>Выберите время, к которому относится глагол:</p>
     <div class="word" id="word">...</div>
     <div>
-        <button class="option-button" onclick="checkAnswer('present', this)">Present Simple</button>
-        <button class="option-button" onclick="checkAnswer('past', this)">Past Simple</button>
-        <button class="option-button" onclick="checkAnswer('future', this)">Future Simple</button>
+        <button class="option-button" data-tense="present" onclick="checkAnswer('present', this)">Present Simple</button>
+        <button class="option-button" data-tense="past" onclick="checkAnswer('past', this)">Past Simple</button>
+        <button class="option-button" data-tense="future" onclick="checkAnswer('future', this)">Future Simple</button>
     </div>
     <p id="result" class="result"></p>
     <button class="next" id="next" onclick="nextWord()">Следующее слово</button>
 
     <script>
         const words = [
-            { word: "go", tense: "present" },
-            { word: "went", tense: "past" },
-            { word: "will go", tense: "future" },
-            { word: "eat", tense: "present" },
-            { word: "ate", tense: "past" },
-            { word: "will eat", tense: "future" },
-            { word: "see", tense: "present" },
-            { word: "saw", tense: "past" },
-            { word: "will see", tense: "future" }
+            { word: "go", tense: "present" }, { word: "went", tense: "past" }, { word: "will go", tense: "future" },
+            { word: "eat", tense: "present" }, { word: "ate", tense: "past" }, { word: "will eat", tense: "future" },
+            { word: "see", tense: "present" }, { word: "saw", tense: "past" }, { word: "will see", tense: "future" },
+            { word: "run", tense: "present" }, { word: "ran", tense: "past" }, { word: "will run", tense: "future" },
+            { word: "write", tense: "present" }, { word: "wrote", tense: "past" }, { word: "will write", tense: "future" },
+            { word: "speak", tense: "present" }, { word: "spoke", tense: "past" }, { word: "will speak", tense: "future" },
+            { word: "drive", tense: "present" }, { word: "drove", tense: "past" }, { word: "will drive", tense: "future" },
+            { word: "swim", tense: "present" }, { word: "swam", tense: "past" }, { word: "will swim", tense: "future" },
+            { word: "jump", tense: "present" }, { word: "jumped", tense: "past" }, { word: "will jump", tense: "future" },
+            { word: "think", tense: "present" }, { word: "thought", tense: "past" }, { word: "will think", tense: "future" },
+            { word: "build", tense: "present" }, { word: "built", tense: "past" }, { word: "will build", tense: "future" },
+            { word: "find", tense: "present" }, { word: "found", tense: "past" }, { word: "will find", tense: "future" },
+            { word: "give", tense: "present" }, { word: "gave", tense: "past" }, { word: "will give", tense: "future" }
         ];
 
         let currentWord = {};
@@ -80,7 +121,6 @@
             document.getElementById("result").textContent = "";
             document.getElementById("next").style.display = "none";
 
-            // Активируем кнопки и сбрасываем их цвет
             document.querySelectorAll(".option-button").forEach(button => {
                 button.disabled = false;
                 button.classList.remove("correct", "wrong");
@@ -90,26 +130,54 @@
         function checkAnswer(selectedTense, button) {
             const result = document.getElementById("result");
             const allButtons = document.querySelectorAll(".option-button");
-
-            // Отключаем кнопки после ответа
+            
             allButtons.forEach(btn => btn.disabled = true);
 
             if (selectedTense === currentWord.tense) {
                 result.textContent = "Верно!";
                 button.classList.add("correct");
+
+                // Добавляем фейерверки 🎆
+                createFireworks(button);
             } else {
                 result.textContent = `Неправильно! Правильный ответ: ${currentWord.tense}`;
                 button.classList.add("wrong");
-
-                // Подсветка правильного ответа
+                
                 allButtons.forEach(btn => {
-                    if (btn.textContent.includes(currentWord.tense.split(" ")[0])) {
+                    if (btn.dataset.tense === currentWord.tense) {
                         btn.classList.add("correct");
                     }
                 });
             }
+            document.getElementById("next").style.display = "inline-block";
+        }
 
-            document.getElementById("next").style.display = "inline-block"; // Показ кнопки "Следующее слово"
+        function createFireworks(button) {
+            const container = button.parentElement;
+            const rect = button.getBoundingClientRect();
+            const buttonX = rect.width / 2;
+            const buttonY = rect.height / 2;
+
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement("div");
+                particle.classList.add("firework");
+
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = Math.random() * 40 + 20;
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
+
+                particle.style.setProperty("--x", `${x}px`);
+                particle.style.setProperty("--y", `${y}px`);
+                particle.style.left = `${buttonX}px`;
+                particle.style.top = `${buttonY}px`;
+
+                container.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 600);
+            }
         }
 
         nextWord();

@@ -8,6 +8,18 @@ body{
     font-family: "Tektur", sans-serif;
 }
 
+.back-button {
+    display: flex;
+    text-align: start;
+    font-family: Tektur;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s;
+}
+
 .title{
     font-family: Tektur;
     padding-left: calc(50% - 600px);
@@ -34,21 +46,20 @@ body{
     font-family: Tektur;
     position: relative;
     padding: 12px 24px;
-    font-size: 18px;
+    font-size: 1.2em;
     font-weight: bold;
-    color: white;
-    background: #ebc85e;
+    color: rgb(0, 0, 0);
+    background: #ffcc00;
     border: none;
     cursor: pointer;
     overflow: hidden;
-    border-radius: 8px;
-    transition: 0.3s ease-in-out;
-    box-shadow:0 4px 15px rgb(226 129 34 / 30%);
+    border-radius: 10px;
+    transition: transform 0.3s, background 0.3s;
 }   
 
 .button:hover {
-    background: #c5a545;
-    box-shadow: 0 6px 20px rgba(179, 130, 90, 0.6);
+    background: #ffaa00;
+    transform: scale(1.1);
 }
 
 .button:active {

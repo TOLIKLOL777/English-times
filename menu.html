@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English_times</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="menu_style.css">
+</head>
+<body>
+    <h1 class="title">Welcome to English trainer of simple times</h1>
+    <h2 class="title">Choose what you want to do</h2>
+    <ul class="list">
+        <section class="section">
+            <button onmouseover="playSound()" class="button" onclick="window.location.href='index.html';">Main game</button>
+            <div class="info">
+                !
+                <div class="tooltip">Like exam with all topics in trainer</div>
+            </div>
+        </section>
+        <section class="section">
+            <button onmouseover="playSound()" class="button" onclick="window.location.href='index.html';">Trainer</button>   
+            <div class="info">
+                !
+                <div class="tooltip">Where you can train some topics</div>
+            </div>
+        </section>
+    </ul>
+    <audio id="hoverSound" src="gta-san-andreas-menu-sound-1.mp3"></audio>
+    <script>
+        function playSound() {
+            let audio = document.getElementById("hoverSound");
+            audio.currentTime = 0;
+            audio.play();
+        }
+    </script>
+</body>
+</html>
