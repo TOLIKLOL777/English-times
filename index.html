@@ -10,29 +10,37 @@
     <link rel="stylesheet" href="index_style.css">
 </head>
 <body>
-    <h1 class="title">Welcome to English trainer of simple times</h1>
+    <h1 id="title" class="title">Welcome to English trainer of simple times</h1>
     <div id="start" class="start_menu">
-        <button class="start_btn" onclick="start()">Play</button>
+        <button id="start_btn" class="start_btn" onclick="start(),playWelcome();">Play</button>
     </div>
     <ul id="menu" class="list">
-        <h2 class="title">Choose what you want to do</h2>
+        <h2 id="title2" class="title">Choose what you want to do</h2>
         <section class="section">
-            <button onmouseover="playSound()" class="button" onclick="window.location.href='main.html';">Main game</button>
+            <button onmouseover="playMGS()" class="button" onclick="window.location.href='main.html';">Main game</button>
             <div class="info">
                 !
                 <div class="tooltip">Like exam with all topics in trainer</div>
             </div>
         </section>
         <section class="section">
-            <button onmouseover="playSound()" class="button" onclick="window.location.href='menu.html';">Trainer</button>   
+            <button onmouseover="playTrainer()" class="button" onclick="window.location.href='menu.html';">Trainer</button>   
             <div class="info">
                 !
                 <div class="tooltip">Where you can train some topics</div>
             </div>
         </section>
     </ul>
-    <audio id="hoverSound" src="btn_hover.mp3"></audio>
+    <audio id="mgs" src="sounds/main_game.mp3"></audio>
+    <audio id="trainer" src="sounds/trainer.mp3"></audio>
+    <audio id="welcome" src="sounds/Welcome.mp3"></audio>
+    <audio id="choose" src="sounds/Choose_todo.mp3"></audio>
     <script>
+        document.getElementById("start_btn").addEventListener("click", function() {
+            let text = document.getElementById("title");
+            text.classList.toggle("show");
+        });
+
         function start() {
             let menu = document.getElementById("menu");
             let start = document.getElementById("start");
@@ -40,10 +48,30 @@
             menu.style.display = "flex";
         }
 
-        function playSound() {
-            let audio = document.getElementById("hoverSound");
+        function playMGS() {
+            let audio = document.getElementById("mgs");
             audio.currentTime = 0;
             audio.play();
+        }
+
+        function playTrainer() {
+            let audio = document.getElementById("trainer");
+            audio.currentTime = 0;
+            audio.play();
+        }
+
+        async function playWelcome() {
+            let audio1 = document.getElementById("welcome");
+            let audio2 = document.getElementById("choose");
+
+            audio1.currentTime = 0;
+            audio1.play();
+
+            await new Promise(resolve => audio1.onended = resolve);
+            let text = document.getElementById("title2");
+            text.classList.toggle("show");
+            audio2.currentTime = 0;
+            audio2.play();
         }
     </script>
 </body>

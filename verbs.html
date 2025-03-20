@@ -50,6 +50,7 @@
             font-size: 24px;
             font-weight: bold;
             margin: 20px 0;
+            width: 100px;
         }
         .start {
             transform: scale(0.8);
@@ -101,6 +102,34 @@
             background: linear-gradient(45deg, #ff4b4b, #ffa500);
             transform: scale(1.05);
         }
+        .form {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .start_btn {
+            font-family: Tektur;
+            position: relative;
+            width: 100px;
+            padding: 12px 24px;
+            margin-top: 100px;
+            font-size: 24px;
+            font-weight: bold;
+            color: rgb(0, 0, 0);
+            background: linear-gradient(45deg, #069219, #2abd05);
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 8px;
+            transition: 0.3s ease-in-out;
+            transition: transform 0.3s, background 0.3s;
+        }  
+
+        .start_btn:hover {
+            background: linear-gradient(45deg, #066412, #27b803);
+            transform: scale(1.1);
+        }
+ 
 
         @keyframes shake {
             0%, 100% { transform: translateX(0); }
@@ -141,17 +170,27 @@
 </head>
 <body>
     <button class="back-button" onclick="window.location.href='menu.html';">Back</button>
-    <h1 class="title">Verb training in different forms</h1>
-    <p class="par">Choose the tense to which the verb belongs:</p>
-    <div class="word" id="word">...</div>
-    <div>
-        <button class="option-button" data-tense="present" onclick="checkAnswer('present', this)">Present Simple</button>
-        <button class="option-button" data-tense="past" onclick="checkAnswer('past', this)">Past Simple</button>
-        <button class="option-button" data-tense="future" onclick="checkAnswer('future', this)">Future Simple</button>
+    <button id="start_btn" class="start_btn">Play</button>
+    <div id="form" class="form">
+        <h1 class="title">Verb training in different forms</h1>
+        <p class="par">Choose the tense to which the verb belongs:</p>
+        <div class="word" id="word">...</div>
+        <div>
+            <button class="option-button" data-tense="present" onclick="checkAnswer('present', this)">Present Simple</button>
+            <button class="option-button" data-tense="past" onclick="checkAnswer('past', this)">Past Simple</button>
+            <button class="option-button" data-tense="future" onclick="checkAnswer('future', this)">Future Simple</button>
+        </div>
+        <p id="result" class="result"></p>
     </div>
-    <p id="result" class="result"></p>
     <button class="next" id="next" onclick="nextWord()">Next word</button>
-
+    <audio id="start" src="sounds/Choose_cortence.mp3"></audio>
+    <audio id="awesome" src="sounds/awesome.mp3"></audio>
+    <audio id="good" src="sounds/good.mp3"></audio>
+    <audio id="yaright" src="sounds/yaright.mp3"></audio>
+    <audio id="correct" src="sounds/correct.mp3"></audio>
+    <audio id="yanotright" src="sounds/yanotright.mp3"></audio>
+    <audio id="tryagn" src="sounds/tryagn.mp3"></audio>
+    <audio id="wrong" src="sounds/wrong.mp3"></audio>
     <script>
          const words = [
             { word: "go", tense: "present" }, { word: "went", tense: "past" }, { word: "will go", tense: "future" },
@@ -168,7 +207,21 @@
             { word: "find", tense: "present" }, { word: "found", tense: "past" }, { word: "will find", tense: "future" },
             { word: "give", tense: "present" }, { word: "gave", tense: "past" }, { word: "will give", tense: "future" }
         ];
-        
+        const sounds_y = [
+            'awesome', 'good', 'yaright', 'correct'
+        ]
+        const sounds_n = [
+            'wrong', 'tryagn', 'yanotright'
+        ]
+
+        document.getElementById("start_btn").addEventListener("click", function() {
+            let text = document.getElementById("form");
+            text.style.display = "flex";
+            document.getElementById("start_btn").style.display = 'none';
+            document.getElementById("start").currentTime = 0;
+            document.getElementById("start").play();
+        });
+
         let currentWord = {};
         document.getElementById("word").classList.add("start");
         setTimeout(() => document.getElementById("word").classList.remove("start"), 500);
@@ -192,9 +245,15 @@
             allButtons.forEach(btn => btn.disabled = true);
 
             if (selectedTense === currentWord.tense) {
+                let audio = document.getElementById(sounds_y[Math.floor(Math.random()*sounds_y.length)]);
+                audio.currentTime = 0;
+                audio.play();
                 result.textContent = "Верно!";
                 button.classList.add("correct");
             } else {
+                let audio = document.getElementById(sounds_n[Math.floor(Math.random()*sounds_n.length)]);
+                audio.currentTime = 0;
+                audio.play();
                 result.textContent = `Неправильно! Правильный ответ: ${currentWord.tense}`;
                 button.classList.add("wrong");
                 shakeTitle();
