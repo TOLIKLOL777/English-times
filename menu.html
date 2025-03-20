@@ -9,36 +9,68 @@
     <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="menu_style.css">
 </head>
-<body>
-    <h1 class="title">Welcome to English trainer of simple times</h1>
-    <div id="start" class="start_menu">
-        <button class="start_btn" onclick="start()">Start</button>
+<body onload="animateElements()">
+    <button onmouseover="playSound()" class="back-button" onclick="window.location.href='index.html';">Back</button>
+    <h1 class="title">Choose the topic to train</h1>
+    <div id="btn_list" class="list">
+        <button onmouseover="playSound()" class="button" onclick="window.location.href='signal_words.html';">Signal words</button>
+        <button onmouseover="playSound()" class="button" onclick="window.location.href='verbs.html';">Verbs</button>
+        <button onmouseover="playSound()" class="button" onclick="window.location.href='sentences.html';">Sentences</button>
     </div>
-    <ul id="menu" class="list">
-        <h2 class="title">Choose what you want to do</h2>
-        <section class="section">
-            <button onmouseover="playSound()" class="button" onclick="window.location.href='main.html';">Main game</button>
-            <div class="info">
-                !
-                <div class="tooltip">Like exam with all topics in trainer</div>
-            </div>
-        </section>
-        <section class="section">
-            <button onmouseover="playSound()" class="button" onclick="window.location.href='index.html';">Trainer</button>   
-            <div class="info">
-                !
-                <div class="tooltip">Where you can train some topics</div>
-            </div>
-        </section>
-    </ul>
+    <footer>
+        <button onmouseover="playSound()" id="toggleButton" class="footer__button">Grammar hint</button>
+        <table id="rules">
+            <tr>
+                <th> </th>
+                <th>Present Simple</th>
+                <th>Past Simple</th>
+                <th>Future Simple</th>
+            </tr>
+            <tr>
+                <td>Утвердительное</td>
+                <td>V / V+s</td>
+                <td>Ved / V²</td>
+                <td>shall / will + V</td>
+            </tr>
+            <tr>
+                <td>Вопросительное</td>
+                <td>Do / Does + V?</td>
+                <td>Did + V?</td>
+                <td>Am / Is / Are + going to V?</td>
+            </tr>
+            <tr>
+                <td>Отрицательное</td>
+                <td>Don't / Doesn't + V</td>
+                <td>Didn't + V</td>
+                <td>shall / will + not + V</td>
+            </tr>
+            <tr>
+                <td>Маркерные слова</td>
+                <td>every day, always, usually, sometimes, seldom, rarely, never, on Mondays, at weekends</td>
+                <td>yesterday, last month, 2 days ago, in 1990, then, when I was..., how long ago...?</td>
+                <td>tomorrow, tonight, next week, in a month, in two days, soon</td>
+            </tr>
+        </table>
+    </footer>
     <audio id="hoverSound" src="btn_hover.mp3"></audio>
     <script>
-        function start() {
-            let menu = document.getElementById("menu");
-            let start = document.getElementById("start");
-            start.style.display = "none";
-            menu.style.display = "flex";
+        function animateElements() {
+            document.body.style.opacity = '1';
+            setTimeout(() => {
+                document.querySelector('.title').classList.add('fade-in');
+                document.querySelector('.list').classList.add('fade-in');
+                document.querySelector('.footer__button').classList.add('fade-in');
+            }, 500);
         }
+        
+        document.getElementById("toggleButton").addEventListener("click", function () {
+            let table = document.getElementById("rules");
+            let btnList = document.getElementById("btn_list");
+            
+            let isHidden = table.style.display !== "block";
+            table.style.display = isHidden ? "block" : "none";
+            btnList.style.paddingBottom = isHidden ? "200px" : "500px";
+        });
 
         function playSound() {
             let audio = document.getElementById("hoverSound");

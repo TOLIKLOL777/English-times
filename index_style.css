@@ -4,80 +4,129 @@
 }
 
 body{
-    background-color: rgb(235, 235, 165);
     font-family: "Tektur", sans-serif;
-    opacity: 0;
-    transition: opacity 1s ease-in;
-}
-
-.back-button {
+    background: linear-gradient(-45deg, #ffcc00, #ff6b6b, #8a2be2, #ffcc00);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+    background-attachment: fixed;
+    margin: 0;
+    height: 100vh;
     display: flex;
-    text-align: start;
-    font-family: Tektur;
-    padding: 10px 20px;
-    margin: 5px;
-    font-size: 18px;
-    cursor: pointer;
-    border: none;
-    background: linear-gradient(45deg, #ff6b6b, #ffb84d);
-    color: white;
-    border-radius: 8px;
-    transition: 0.3s;
-    margin-top: 10px;
-    margin-bottom: 70px;
-    margin-left: 20px;
+    flex-direction: column;
+    align-items: center;
 }
 
-.back-button:hover {
-    background: linear-gradient(45deg, #ff4b4b, #ffa500);
-    transform: scale(1.05);
-}
 
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 .title{
+    margin-top: 70px;
     font-family: Tektur;
     padding-left: calc(50% - 600px);
     padding-right: calc(50% - 600px);
     display: flex;
     justify-content: center;
     padding-top: 50px;
-    padding-bottom: 80px;
-    transform: translateY(-20px);
-    opacity: 0;
-    transition: all 1s ease-out;
+    padding-bottom: 50px;
 }
 
-.list{
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+h1 {
+    font-size: 2.5em;
+    font-family: Tektur, cursive;
+    color: #000000;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.90); }
+    50% { transform: scale(1); }
+    100% { transform: scale(0.90); }
+}
+
+.start_menu {
     display: flex;
     justify-content: center;
     gap: 20px;
     list-style-type: none;
     flex-direction: column;
-    align-items: stretch;
-    padding-left: 800px;
-    padding-right: 800px;
-    padding-bottom: 500px;
-    transform: translateY(-20px);
-    opacity: 0;
-    transition: all 1s ease-out;
+    align-items: center;
+}
+
+.start_btn {
+    font-family: Tektur;
+    position: relative;
+    width: 250px;
+    padding: 12px 24px;
+    margin-top: 100px;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background: linear-gradient(45deg, #069219, #2abd05);
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    transition: transform 0.3s, background 0.3s;
+}   
+
+.start_btn:hover {
+    background: linear-gradient(45deg, #066412, #27b803);
+    transform: scale(1.1);
+}
+
+.start_btn:active {
+    transform: scale(0.95);
+}
+
+.list{
+    display: none;
+    justify-content: center;
+    gap: 20px;
+    list-style-type: none;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity 1s ease-in;
+}
+
+.section {
+    display: flex;
 }
 
 .button {
     font-family: Tektur;
     position: relative;
+    width: 250px;
     padding: 12px 24px;
-    font-size: 1.2em;
+    font-size: 18px;
     font-weight: bold;
     color: rgb(0, 0, 0);
-    background: linear-gradient(252.01deg, #FFCC00 0%, #FFAA49 100%);
+    background: linear-gradient(252.01deg, #FFCC00 0%, #eb8a1b 100%);
     border: none;
     cursor: pointer;
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
     transition: transform 0.3s, background 0.3s;
 }   
 
 .button:hover {
-    background: linear-gradient(252.01deg, #E8BA04 0%, #CF8A3B 100%);
+    background: linear-gradient(252.01deg, #E8BA04 0%, #bb7c35 100%);
     transform: scale(1.1);
 }
 
@@ -85,59 +134,36 @@ body{
     transform: scale(0.95);
 }
 
-.footer__button {
+.info {
+    margin-left: 15px;
+    width: 20px;
+    height: 20px;
+    background-color: lightblue;
+    border-radius: 50%;
     display: flex;
-    font-family: Tektur;
-    padding: 12px 24px;
-    font-size: 18px;
-    font-weight: bold;
-    color: rgb(118, 214, 238);
-    text-align: center;
-    background: #ffffff;
-    border: 2px solid rgb(0, 247, 255);
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 8px;
-    transition: 0.3s ease-in-out;
-    box-shadow:0 4px 15px rgba(155, 197, 211, 0.3);
-    margin-bottom: 50px;
-    margin-left: 50px;
-    transform: translateY(-20px);
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    cursor: default;
+    position: relative;
+}
+
+.tooltip {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
     opacity: 0;
-    transition: all 1s ease-out;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
 }
-
-.footer__button:hover {
-    background: #e6e6e6;
-    box-shadow: 0 6px 20px rgba(155, 197, 211, 0.3);
-}
-
-.footer__button:active {
-    transform: scale(0.95);
-}
-
-table {
-    display: none;
-    padding-left: 200px;
-    padding-right: 200px;
-    border-collapse: collapse;
-    text-align: center;
-    padding-bottom: 50px;
-}
-
-th, td {
-    border: 1px solid black;
-    padding: 10px;
-}
-
-th {
-    background-color: lightgray;
-}
-
-td {
-    background-color: white;
-}
-.fade-in {
+.info:hover .tooltip {
     opacity: 1;
-    transform: translateY(0);
+    visibility: visible;
 }

@@ -4,46 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Экзамен-игра</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
     <style>
         body {
             text-align: center;
-            background-color: #e0f7fa;
+            background: linear-gradient(to bottom, #e0f7fa, #80deea);
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: 'Tektur', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .back-button {
+            display: flex;
+            align-self: self-start;
+            text-align: start;
+            font-family: Tektur;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            justify-content: flex-start;
+            background: linear-gradient(45deg, #ff6b6b, #ffb84d);
+            color: white;
+            border-radius: 8px;
+            transition: 0.3s;
+            margin-top: 10px;
+            margin-bottom: 70px;
+            margin-left: 20px;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(45deg, #ff4b4b, #ffa500);
+            transform: scale(1.05);
         }
         .map-container {
             display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            justify-content: center;
-            width: 650px;
-            gap: 10px;
-            margin: 0 auto;
-            border: 5px solid #000;
-            border-radius: 20px;
-            background-color: white;
-            padding: 10px;
             flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 500px;
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         .level {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background-color: lightblue;
+            background: #4fc3f7;
             text-align: center;
-            line-height: 50px;
-            font-size: 20px;
+            line-height: 60px;
+            font-size: 22px;
             cursor: pointer;
-            border: 2px solid black;
+            border: 3px solid #0288d1;
             font-weight: bold;
+            color: white;
+            transition: transform 0.3s ease, background 0.3s ease;
+            margin: 10px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+        .level:hover {
+            transform: scale(1.1);
+            background: #039be5;
         }
         .locked {
-            background-color: gray;
+            background: #b0bec5;
+            border-color: #78909c;
             cursor: not-allowed;
             pointer-events: none;
+        }
+        .locked:hover {
+            transform: none;
         }
     </style>
 </head>
 <body>
-    <h1>Экзамен-игра</h1>
+    <button class="back-button" onclick="window.location.href='menu.html';">Back</button>
+    <h1 style="color: #01579b; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Экзамен-игра</h1>
     <div class="map-container">
         <div class="level" id="level1" onclick="openLevel(1)">1</div>
         <div class="level locked" id="level2" onclick="openLevel(2)">2</div>
@@ -54,7 +100,7 @@
         <div class="level locked" id="level7" onclick="openLevel(7)">7</div>
         <div class="level locked" id="level8" onclick="openLevel(8)">8</div>
         <div class="level locked" id="level9" onclick="openLevel(9)">9</div>
-        <div class="level locked" id="level10" onclick="openLevel(10)">10</div>    
+        <div class="level locked" id="level10" onclick="openLevel(10)">10</div>
     </div>
     <script>
         function unlockLevels() {
@@ -63,16 +109,17 @@
                 let levelElement = document.getElementById(`level${level + 1}`);
                 if (levelElement) {
                     levelElement.classList.remove("locked");
+                    levelElement.style.animation = "unlock 0.5s ease-in-out forwards";
                 }
             });
         }
-
+        
         function openLevel(level) {
             if (!document.getElementById(`level${level}`).classList.contains("locked")) {
                 window.location.href = `levels/level${level}.html`;
             }
         }
-
+        
         document.addEventListener("DOMContentLoaded", function() {
             unlockLevels();
         });
