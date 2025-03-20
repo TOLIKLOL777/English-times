@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Экзамен-игра</title>
+    <title>Main_game</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap" rel="stylesheet">
@@ -88,20 +88,21 @@
     </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='index2.html';">Back</button>
-    <h1 style="color: #01579b; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Экзамен-игра</h1>
+    <button onmouseover="playSound()" class="back-button" onclick="window.location.href='index2.html';">Back</button>
+    <h1 style="color: #01579b; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Adventure of Knowledge</h1>
     <div class="map-container">
-        <div class="level" id="level1" onclick="openLevel(1)">1</div>
-        <div class="level locked" id="level2" onclick="openLevel(2)">2</div>
-        <div class="level locked" id="level3" onclick="openLevel(3)">3</div>
-        <div class="level locked" id="level4" onclick="openLevel(4)">4</div>
-        <div class="level locked" id="level5" onclick="openLevel(5)">5</div>
-        <div class="level locked" id="level6" onclick="openLevel(6)">6</div>
-        <div class="level locked" id="level7" onclick="openLevel(7)">7</div>
-        <div class="level locked" id="level8" onclick="openLevel(8)">8</div>
-        <div class="level locked" id="level9" onclick="openLevel(9)">9</div>
-        <div class="level locked" id="level10" onclick="openLevel(10)">10</div>
+        <div onmouseover="playSound()" class="level" id="level1" onclick="openLevel(1)">1</div>
+        <div onmouseover="playSound()" class="level locked" id="level2" onclick="openLevel(2)">2</div>
+        <div onmouseover="playSound()" class="level locked" id="level3" onclick="openLevel(3)">3</div>
+        <div onmouseover="playSound()" class="level locked" id="level4" onclick="openLevel(4)">4</div>
+        <div onmouseover="playSound()" class="level locked" id="level5" onclick="openLevel(5)">5</div>
+        <div onmouseover="playSound()" class="level locked" id="level6" onclick="openLevel(6)">6</div>
+        <div onmouseover="playSound()" class="level locked" id="level7" onclick="openLevel(7)">7</div>
+        <div onmouseover="playSound()" class="level locked" id="level8" onclick="openLevel(8)">8</div>
+        <div onmouseover="playSound()" class="level locked" id="level9" onclick="openLevel(9)">9</div>
+        <div onmouseover="playSound()" class="level locked" id="level10" onclick="openLevel(10)">10</div>
     </div>
+    <audio id="hoverSound" src="sounds/btn_hover.mp3"></audio>
     <script>
         function unlockLevels() {
             let completedLevels = JSON.parse(localStorage.getItem("completedLevels")) || [];
@@ -123,6 +124,12 @@
         document.addEventListener("DOMContentLoaded", function() {
             unlockLevels();
         });
+
+        function playSound() {
+            let audio = document.getElementById("hoverSound");
+            audio.currentTime = 0;
+            audio.play();
+        }
     </script>
 </body>
 </html>

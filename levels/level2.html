@@ -3,24 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Уровень 2</title>
+    <title>Level 2</title>
     <link rel="stylesheet" href="levels_style.css">
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='../main.html';">Back</button>
-    <h1>Уровень 2</h1>
-    <div class="question-container">
+    <button onmouseover="playSound()" class="back-button" onclick="window.location.href='../main.html';">Back</button>
+    <h1>Level 2</h1>
+    <button id="start_btn" class="start_btn">Start</button>
+    <div id="question-container" class="question-container">
         <div id="question-number" class="question-number"></div>
         <div id="question" class="question"></div>
         <div id="options" class="options"></div>
         <div id="feedback" class="feedback"></div>
-        <button id="next-btn" class="next" onclick="nextQuestion()" style="display: none;">Следующий вопрос</button>
+        <button id="next-btn" class="next" onclick="nextQuestion()" style="display: none;">Next question</button>
     </div>
     <div id="result-container" class="result_container">
         <h2 id="result-text"></h2>
-        <button onclick="restartQuiz()" class="retry">Попробовать снова</button>
-        <button onclick="goToMenu()" class="menu-btn" style="display: none;">Вернуться в меню</button>
+        <button onclick="restartQuiz()" class="retry">Try again</button>
+        <button onclick="goToMenu()" class="menu-btn" style="display: none;">Return to menu</button>
     </div>
+    <audio id="hoverSound" src="../sounds/btn_hover.mp3"></audio>
+    <audio id="awesome" src="../sounds/awesome.mp3"></audio>
+    <audio id="good" src="../sounds/good.mp3"></audio>
+    <audio id="yaright" src="../sounds/yaright.mp3"></audio>
+    <audio id="correct" src="../sounds/correct.mp3"></audio>
+    <audio id="yanotright" src="../sounds/yanotright.mp3"></audio>
+    <audio id="tryagn" src="../sounds/tryagn.mp3"></audio>
+    <audio id="wrong" src="../sounds/wrong.mp3"></audio>
+    <audio id="hoverSound" src="../sounds/btn_hover.mp3"></audio>
+    <audio id="letbgn" src="../sounds/letbeg.mp3"></audio>
+    <audio id="letstart" src="../sounds/letstart.mp3"></audio>
     <script>
         const questions = [
             { q: "Какой вспомогательный глагол используется в Past Simple?", options: ["do/does", "was/were", "did"], correct: "did" },
@@ -33,12 +45,34 @@
         let currentQuestion = 0;
         let correctAnswers = 0;
 
+        const sounds_y = [
+            'awesome', 'good', 'yaright', 'correct'
+        ]
+
+        const sounds_n = [
+            'wrong', 'tryagn', 'yanotright'
+        ]
+
+        const sounds_let = [
+            'letbgn', 'letstart'
+        ]
+
+        document.getElementById("start_btn").addEventListener("click", function() {
+            let text = document.getElementById("question-container");
+            text.style.display = "inline-block";
+            document.getElementById("start_btn").style.display = 'none';
+            let audio = document.getElementById(sounds_let[Math.floor(Math.random()*sounds_let.length)]);
+            audio.currentTime = 0;
+            audio.play();
+            loadQuestion();
+        });
+
         function shuffleArray(array) {
             return array.sort(() => Math.random() - 0.5);
         }
 
         function loadQuestion() {
-            document.getElementById("question-number").innerText = `Вопрос ${currentQuestion + 1} из ${questions.length}`;
+            document.getElementById("question-number").innerText = `Question ${currentQuestion + 1} of ${questions.length}`;
             document.getElementById("question").innerText = questions[currentQuestion].q;
             document.getElementById("options").innerHTML = "";
             document.getElementById("feedback").innerText = "";
@@ -59,11 +93,17 @@
             
             if (answer === questions[currentQuestion].correct) {
                 button.style.backgroundColor = "#4CAF50";
-                document.getElementById("feedback").innerText = "✅ Правильно!";
+                document.getElementById("feedback").innerText = "✅ Correct!";
                 correctAnswers++;
+                let audio = document.getElementById(sounds_y[Math.floor(Math.random()*sounds_y.length)]);
+                audio.currentTime = 0;
+                audio.play();
             } else {
                 button.style.backgroundColor = "#E53935";
-                document.getElementById("feedback").innerText = `❌ Неправильно. Верный ответ: ${questions[currentQuestion].correct}`;
+                document.getElementById("feedback").innerText = `❌ Uncorrect. Correct answer is: ${questions[currentQuestion].correct}`;
+                let audio = document.getElementById(sounds_n[Math.floor(Math.random()*sounds_n.length)]);
+                audio.currentTime = 0;
+                audio.play();
             }
             
             document.getElementById("next-btn").style.display = "block";
@@ -89,7 +129,7 @@
             document.querySelector(".question-container").style.display = "none";
             document.getElementById("result-container").style.display = "flex";
             
-            document.getElementById("result-text").innerText = `Вы ответили правильно на ${correctAnswers} из ${questions.length} вопросов.`;
+            document.getElementById("result-text").innerText = `You answered correctly on ${correctAnswers} of ${questions.length} questions.`;
             
             if (correctAnswers < questions.length) {
                 document.querySelector(".retry").style.display = "block";
@@ -111,6 +151,12 @@
         }
         
         document.addEventListener("DOMContentLoaded", loadQuestion);
+
+        function playSound() {
+            let audio = document.getElementById("hoverSound");
+            audio.currentTime = 0;
+            audio.play();
+        }
     </script>
 </body>
 </html>

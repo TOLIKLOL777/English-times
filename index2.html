@@ -113,6 +113,23 @@
             display: flex;
         }
 
+        .footer {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            width: 100%;
+            bottom: 10px;
+        }
+
+        .footer_text {
+            padding-left: 10px;
+            padding-top: 10px;
+        }
+
+        .line{
+            border: 0.5px solid rgb(0, 0, 0);
+        }
+
         .button {
             font-family: Tektur;
             position: relative;
@@ -175,23 +192,19 @@
     </style>
 </head>
 <body>
-    <h1 id="title" class="title">Welcome to English trainer of simple times</h1>
+    <h1 id="title" class="title">English trainer of simple times</h1>
     <ul id="menu" class="list">
         <h2 id="title2" class="title">Choose what you want to do</h2>
         <section class="section">
             <button onmouseover="playMGS()" class="button" onclick="window.location.href='main.html';">Main game</button>
-            <div class="info">
-                !
-                <div class="tooltip">Like exam with all topics in trainer</div>
-            </div>
         </section>
         <section class="section">
             <button onmouseover="playTrainer()" class="button" onclick="window.location.href='menu.html';">Trainer</button>   
-            <div class="info">
-                !
-                <div class="tooltip">Where you can train some topics</div>
-            </div>
         </section>
+        <footer class="footer">
+            <div class="line"></div>
+            <p class="footer_text">Voiced by - Alexander Nikolaev</p>
+        </footer>
     </ul>
     <audio id="mgs" src="sounds/main_game.mp3"></audio>
     <audio id="trainer" src="sounds/trainer.mp3"></audio>

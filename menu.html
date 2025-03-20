@@ -52,7 +52,7 @@
             </tr>
         </table>
     </footer>
-    <audio id="hoverSound" src="btn_hover.mp3"></audio>
+    <audio id="hoverSound" src="sounds/btn_hover.mp3"></audio>
     <audio id="sentences" src="sounds/sentens.mp3"></audio>
     <audio id="verbs" src="sounds/verbs.mp3"></audio>
     <audio id="signal_words" src="sounds/sig_wrds.mp3"></audio>
@@ -73,7 +73,8 @@
             
             let isHidden = table.style.display !== "block";
             table.style.display = isHidden ? "block" : "none";
-            btnList.style.paddingBottom = isHidden ? "200px" : "500px";
+            btnList.style.marginBottom = isHidden ? "5%" : "25%";
+
         });
 
         function playSound() {

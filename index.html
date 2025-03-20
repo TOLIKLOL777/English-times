@@ -12,24 +12,18 @@
 <body>
     <h1 id="title" class="title">Welcome to English trainer of simple times</h1>
     <div id="start" class="start_menu">
-        <button id="start_btn" class="start_btn" onclick="start(),playWelcome();">Play</button>
+        <button id="start_btn" class="start_btn" onclick="start(),playWelcome();">Start</button>
     </div>
     <ul id="menu" class="list">
         <h2 id="title2" class="title">Choose what you want to do</h2>
-        <section class="section">
+        <section id="section" class="section">
             <button onmouseover="playMGS()" class="button" onclick="window.location.href='main.html';">Main game</button>
-            <div class="info">
-                !
-                <div class="tooltip">Like exam with all topics in trainer</div>
-            </div>
-        </section>
-        <section class="section">
             <button onmouseover="playTrainer()" class="button" onclick="window.location.href='menu.html';">Trainer</button>   
-            <div class="info">
-                !
-                <div class="tooltip">Where you can train some topics</div>
-            </div>
         </section>
+        <footer class="footer">
+            <div class="line"></div>
+            <p class="footer_text">Voiced by - Alexander Nikolaev</p>
+        </footer>
     </ul>
     <audio id="mgs" src="sounds/main_game.mp3"></audio>
     <audio id="trainer" src="sounds/trainer.mp3"></audio>
@@ -70,6 +64,7 @@
             await new Promise(resolve => audio1.onended = resolve);
             let text = document.getElementById("title2");
             text.classList.toggle("show");
+            document.getElementById("section").classList.toggle("show");
             audio2.currentTime = 0;
             audio2.play();
         }

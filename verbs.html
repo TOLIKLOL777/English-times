@@ -50,7 +50,7 @@
             font-size: 24px;
             font-weight: bold;
             margin: 20px 0;
-            width: 100px;
+            width: 200px;
         }
         .start {
             transform: scale(0.8);
@@ -169,7 +169,7 @@
     </style>
 </head>
 <body>
-    <button class="back-button" onclick="window.location.href='menu.html';">Back</button>
+    <button onmouseover="playSound()" class="back-button" onclick="window.location.href='menu.html';">Back</button>
     <button id="start_btn" class="start_btn">Play</button>
     <div id="form" class="form">
         <h1 class="title">Verb training in different forms</h1>
@@ -191,6 +191,9 @@
     <audio id="yanotright" src="sounds/yanotright.mp3"></audio>
     <audio id="tryagn" src="sounds/tryagn.mp3"></audio>
     <audio id="wrong" src="sounds/wrong.mp3"></audio>
+    <audio id="hoverSound" src="sounds/btn_hover.mp3"></audio>
+    <audio id="letbgn" src="sounds/letbeg.mp3"></audio>
+    <audio id="letstart" src="sounds/letstart.mp3"></audio>
     <script>
          const words = [
             { word: "go", tense: "present" }, { word: "went", tense: "past" }, { word: "will go", tense: "future" },
@@ -207,19 +210,33 @@
             { word: "find", tense: "present" }, { word: "found", tense: "past" }, { word: "will find", tense: "future" },
             { word: "give", tense: "present" }, { word: "gave", tense: "past" }, { word: "will give", tense: "future" }
         ];
+
         const sounds_y = [
             'awesome', 'good', 'yaright', 'correct'
         ]
+
         const sounds_n = [
             'wrong', 'tryagn', 'yanotright'
         ]
 
-        document.getElementById("start_btn").addEventListener("click", function() {
+        const sounds_let = [
+            'letbgn', 'letstart'
+        ]
+
+        document.getElementById("start_btn").addEventListener("click", async function() {
             let text = document.getElementById("form");
             text.style.display = "flex";
             document.getElementById("start_btn").style.display = 'none';
-            document.getElementById("start").currentTime = 0;
-            document.getElementById("start").play();
+
+            let audio1 = document.getElementById(sounds_let[Math.floor(Math.random()*sounds_let.length)]);
+            let audio2 = document.getElementById('start');
+
+            audio1.currentTime = 0;
+            audio1.play();
+
+            await new Promise(resolve => audio1.onended = resolve);
+            audio2.currentTime = 0;
+            audio2.play();
         });
 
         let currentWord = {};
@@ -273,6 +290,12 @@
             setTimeout(() => title.classList.remove("shake-text"), 500);
         }
         nextWord();
+        
+        function playSound() {
+            let audio = document.getElementById("hoverSound");
+            audio.currentTime = 0;
+            audio.play();
+        }
     </script>
 </body>
 </html>
