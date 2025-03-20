@@ -4,9 +4,6 @@
 }
 
 body{
-    /* background-color: #f3e09f;
-    background-image: url(menu_bg.png);
-    background-size: cover; */
     font-family: "Tektur", sans-serif;
     background: linear-gradient(-45deg, #ffcc00, #ff6b6b, #8a2be2, #ffcc00);
     background-size: 400% 400%;
@@ -32,13 +29,14 @@ body{
     }
 }
 .title{
+    margin-top: 70px;
     font-family: Tektur;
     padding-left: calc(50% - 400px);
     padding-right: calc(50% - 400px);
     display: flex;
     justify-content: center;
     padding-top: 50px;
-    padding-bottom: 80px;
+    padding-bottom: 50px;
 }
 
 @keyframes fadeIn {
@@ -58,13 +56,49 @@ h1 {
     100% { transform: scale(0.90); }
 }
 
-.list{
+.start_menu {
     display: flex;
     justify-content: center;
     gap: 20px;
     list-style-type: none;
     flex-direction: column;
     align-items: center;
+}
+
+.start_btn {
+    font-family: Tektur;
+    position: relative;
+    width: 250px;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    background: linear-gradient(45deg, #069219, #2abd05);
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+    transition: transform 0.3s, background 0.3s;
+}   
+
+.start_btn:hover {
+    background: linear-gradient(45deg, #066412, #27b803);
+    transform: scale(1.1);
+}
+
+.start_btn:active {
+    transform: scale(0.95);
+}
+
+.list{
+    display: none;
+    justify-content: center;
+    gap: 20px;
+    list-style-type: none;
+    flex-direction: column;
+    align-items: center;
+    transition: opacity 1s ease-in;
 }
 
 .section {
@@ -79,7 +113,7 @@ h1 {
     font-size: 18px;
     font-weight: bold;
     color: rgb(0, 0, 0);
-    background: linear-gradient(252.01deg, #FFCC00 0%, #FFAA49 100%);
+    background: linear-gradient(252.01deg, #FFCC00 0%, #eb8a1b 100%);
     border: none;
     cursor: pointer;
     overflow: hidden;
@@ -89,7 +123,7 @@ h1 {
 }   
 
 .button:hover {
-    background: linear-gradient(252.01deg, #E8BA04 0%, #CF8A3B 100%);
+    background: linear-gradient(252.01deg, #E8BA04 0%, #bb7c35 100%);
     transform: scale(1.1);
 }
 

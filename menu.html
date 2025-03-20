@@ -11,8 +11,11 @@
 </head>
 <body>
     <h1 class="title">Welcome to English trainer of simple times</h1>
-    <h2 class="title">Choose what you want to do</h2>
-    <ul class="list">
+    <div id="start" class="start_menu">
+        <button class="start_btn" onclick="start()">Start</button>
+    </div>
+    <ul id="menu" class="list">
+        <h2 class="title">Choose what you want to do</h2>
         <section class="section">
             <button onmouseover="playSound()" class="button" onclick="window.location.href='main.html';">Main game</button>
             <div class="info">
@@ -30,6 +33,13 @@
     </ul>
     <audio id="hoverSound" src="btn_hover.mp3"></audio>
     <script>
+        function start() {
+            let menu = document.getElementById("menu");
+            let start = document.getElementById("start");
+            start.style.display = "none";
+            menu.style.display = "flex";
+        }
+
         function playSound() {
             let audio = document.getElementById("hoverSound");
             audio.currentTime = 0;

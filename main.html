@@ -3,230 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Simple Tenses Exam</title>
+    <title>Экзамен-игра</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #f4f4f4;
+            background-color: #e0f7fa;
         }
-        .container {
-            display: none;
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        .question {
-            font-size: 18px;
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-        .answer-input {
-            padding: 10px;
-            font-size: 16px;
-            margin: 5px;
-            text-align: center;
-        }
-        .option-container {
-            margin-top: 10px;
-        }
-        .option-button {
-            padding: 10px 15px;
-            font-size: 16px;
-            margin: 5px;
-            cursor: pointer;
-        }
-        .option-button:disabled {
-            background-color: #ccc;
-            cursor: default;
-        }
-        .feedback {
-            font-size: 18px;
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 5px;
-            background: #f1f1f1;
-            display: none;
-        }
-        .status-container {
+        .map-container {
             display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-        .score, .counter {
-            font-size: 18px;
-            text-align: left;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+            width: 650px;
+            gap: 10px;
+            margin: 0 auto;
+            border: 5px solid #000;
+            border-radius: 20px;
+            background-color: white;
             padding: 10px;
-            border-radius: 5px;
-            background: #f1f1f1;
+            flex-wrap: wrap;
         }
-        .restart-button, .next-button {
-            margin-top: 15px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            display: none;
-        }
-        input {
-            padding: 7px;
-            font-size: 16px;
-            border-radius: 5px;
-            outline: none;
-            margin-left: 5px;
+        .level {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: lightblue;
             text-align: center;
-        }
-        .correct {
-            color: #4caf50;
+            line-height: 50px;
+            font-size: 20px;
+            cursor: pointer;
+            border: 2px solid black;
             font-weight: bold;
         }
-        .incorrect {
-            color: #ff4b4b;
-            font-weight: bold;
+        .locked {
+            background-color: gray;
+            cursor: not-allowed;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
-    <h2>English Simple Tenses Exam</h2>
-    <div id="start-screen" class="start-screen">
-        <h2>Добро пожаловать в English Simple Tenses Exam!</h2>
-        <p>В этом экзамене вам предстоит ответить на <b>5 вопросов</b>.</p>
-        <button class="btn" onclick="startExam()">Начать экзамен</button>
+    <h1>Экзамен-игра</h1>
+    <div class="map-container">
+        <div class="level" id="level1" onclick="openLevel(1)">1</div>
+        <div class="level locked" id="level2" onclick="openLevel(2)">2</div>
+        <div class="level locked" id="level3" onclick="openLevel(3)">3</div>
+        <div class="level locked" id="level4" onclick="openLevel(4)">4</div>
+        <div class="level locked" id="level5" onclick="openLevel(5)">5</div>
+        <div class="level locked" id="level6" onclick="openLevel(6)">6</div>
+        <div class="level locked" id="level7" onclick="openLevel(7)">7</div>
+        <div class="level locked" id="level8" onclick="openLevel(8)">8</div>
+        <div class="level locked" id="level9" onclick="openLevel(9)">9</div>
+        <div class="level locked" id="level10" onclick="openLevel(10)">10</div>    
     </div>
-    <div id="container" class="container">
-        <div id="question-container"></div>
-        <div id="feedback" class="feedback"></div>
-        <div class="status-container">
-            <div id="counter" class="counter"></div>
-            <div id="score" class="score">Score: 0</div>
-        </div>
-        <button class="next-button" onclick="nextQuestion()">Next</button>
-        <button class="restart-button" onclick="startExam()">Restart Exam</button>
-    </div>
-    
     <script>
-        const questions = [
-            { type: 'verb', text: 'go', correct: 'present' },
-            { type: 'verb', text: 'went', correct: 'past' },
-            { type: 'sentence', text: 'Yesterday, he __ (to visit) his grandmother.', correct: 'visited' },
-            { type: 'signal', text: 'always', correct: 'present' },
-            { type: 'signal', text: 'last year', correct: 'past' },
-            { type: 'sentence', text: 'Tomorrow, they __ (to travel) to London.', correct: 'will travel' }
-        ];
-
-        let currentQuestions = [];
-        let currentIndex = 0;
-        let score = 0;
-        let answered = false;
-
-        function startExam() {
-            score = 0;
-            currentIndex = 0;
-            document.getElementById('score').innerText = `Score: ${score}`;
-            document.getElementById('counter').innerText = '';
-            document.getElementById('feedback').style.display = 'none';
-            document.querySelector('.restart-button').style.display = 'none';
-            document.querySelector('.next-button').style.display = 'none';
-            document.getElementById('container').style.display = 'block';
-            document.getElementById('start-screen').style.display = 'none';
-            currentQuestions = [...questions].sort(() => Math.random() - 0.5).slice(0, 5);
-            renderQuestion();
+        function unlockLevels() {
+            let completedLevels = JSON.parse(localStorage.getItem("completedLevels")) || [];
+            completedLevels.forEach(level => {
+                let levelElement = document.getElementById(`level${level + 1}`);
+                if (levelElement) {
+                    levelElement.classList.remove("locked");
+                }
+            });
         }
 
-        function renderQuestion() {
-            answered = false;
-            const container = document.getElementById('question-container');
-            container.innerHTML = '';
-            document.getElementById('counter').innerText = `Question ${currentIndex + 1} of ${currentQuestions.length}`;
-            document.getElementById('feedback').style.display = 'none';
-            const q = currentQuestions[currentIndex];
-            const div = document.createElement('div');
-            console.log(q.type,q.text)
-            div.className = 'question';
-            if (q.type === 'sentence') {
-                div.innerHTML = `${currentIndex + 1}. ` + q.text.replace('__', `<input type='text' id='answer' onkeypress='handleKeyPress(event)' autocomplete='off'>`);
-                container.appendChild(div);
-            } else {
-                div.innerHTML = `${currentIndex + 1}. ${q.text}`;
-                const optionContainer = document.createElement('div');
-                optionContainer.className = 'option-container';
-                ['present', 'past', 'future'].forEach(tense => {
-                    const button = document.createElement('button');
-                    button.className = 'option-button';
-                    button.innerText = tense.charAt(0).toUpperCase() + tense.slice(1);
-                    button.onclick = () => checkChoice(tense);
-                    optionContainer.appendChild(button);
-                });
-                div.appendChild(optionContainer);
-            }
-            container.appendChild(div);
-        }
-        
-        function handleKeyPress(event) {
-            if (event.key === "Enter") {
-                checkAnswer();
+        function openLevel(level) {
+            if (!document.getElementById(`level${level}`).classList.contains("locked")) {
+                window.location.href = `levels/level${level}.html`;
             }
         }
 
-        function checkAnswer() {
-            const q = currentQuestions[currentIndex];
-            let input = document.getElementById('answer');
-            let correctAnswer = q.correct;
-            let userAnswer = input.value.trim().toLowerCase();
-            let questionDiv = document.querySelector('.question');
-            let feedback = document.getElementById('feedback');
-            
-            feedback.style.display = 'block';
-            if (userAnswer === correctAnswer) {
-                score += 10;
-                feedback.innerText = 'Ответ правильный!';
-                feedback.className = 'feedback correct';
-            } else {
-                feedback.innerText = `Ответ неправильный! Правильный ответ: ${correctAnswer}`;
-                feedback.className = 'feedback incorrect';
-            }
-            
-            let textNode = document.createTextNode(` ${correctAnswer}`);
-            questionDiv.replaceChild(textNode, input);
-            questionDiv.innerHTML = questionDiv.innerHTML.replace(/\(.*?\)/g, '');
-            document.getElementById('score').innerText = `Score: ${score}`;
-            document.querySelector('.next-button').style.display = 'block';
-        }
-
-        function checkChoice(choice) {
-            if (answered) return;
-            answered = true;
-            document.querySelectorAll('.option-button').forEach(btn => btn.disabled = true);
-            let feedback = document.getElementById('feedback');
-            feedback.style.display = 'block';
-            
-            if (choice === currentQuestions[currentIndex].correct) {
-                score += 10;
-                feedback.innerText = 'Ответ правильный!';
-                feedback.className = 'feedback correct';
-            } else {
-                feedback.innerText = `Ответ неправильный! Правильный ответ: ${currentQuestions[currentIndex].correct}`;
-                feedback.className = 'feedback incorrect';
-            }
-            document.getElementById('score').innerText = `Score: ${score}`;
-            document.querySelector('.next-button').style.display = 'block';
-        }
-
-        function nextQuestion() {
-            currentIndex++;
-            document.querySelector('.next-button').style.display = 'none';
-            renderQuestion();
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            unlockLevels();
+        });
     </script>
 </body>
 </html>
