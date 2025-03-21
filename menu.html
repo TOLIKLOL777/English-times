@@ -11,53 +11,68 @@
 </head>
 <body onload="animateElements()">
     <button onmouseover="playSound()" class="back-button" onclick="window.location.href='index2.html';">Back</button>
-    <h1 class="title">Choose the topic to train</h1>
-    <div id="btn_list" class="list">
-        <button onmouseover="playSignal()" class="button" onclick="window.location.href='signal_words.html';">Signal words</button>
-        <button onmouseover="playVerbs()" class="button" onclick="window.location.href='verbs.html';">Verbs</button>
-        <button onmouseover="playSentences()" class="button" onclick="window.location.href='sentences.html';">Sentences</button>
+    <div id="start" class="start_menu">
+        <h2>In here you can train some topics of Simple times</h2>
+        <button id="start_btn" class="start_btn" onclick="start(),playWelcome();">Got it</button>
     </div>
-    <footer>
-        <button onmouseover="playSound()" id="toggleButton" class="footer__button">Grammar hint</button>
-        <table id="rules">
-            <tr>
-                <th> </th>
-                <th>Present Simple</th>
-                <th>Past Simple</th>
-                <th>Future Simple</th>
-            </tr>
-            <tr>
-                <td>Утвердительное</td>
-                <td>V / V+s</td>
-                <td>Ved / V²</td>
-                <td>shall / will + V</td>
-            </tr>
-            <tr>
-                <td>Вопросительное</td>
-                <td>Do / Does + V?</td>
-                <td>Did + V?</td>
-                <td>Am / Is / Are + going to V?</td>
-            </tr>
-            <tr>
-                <td>Отрицательное</td>
-                <td>Don't / Doesn't + V</td>
-                <td>Didn't + V</td>
-                <td>shall / will + not + V</td>
-            </tr>
-            <tr>
-                <td>Маркерные слова</td>
-                <td>every day, always, usually, sometimes, seldom, rarely, never, on Mondays, at weekends</td>
-                <td>yesterday, last month, 2 days ago, in 1990, then, when I was..., how long ago...?</td>
-                <td>tomorrow, tonight, next week, in a month, in two days, soon</td>
-            </tr>
-        </table>
-    </footer>
+    <div id="form" class="form">
+        <h1 class="title">Choose the topic to train</h1>
+        <div id="btn_list" class="list">
+            <button onmouseover="playSignal()" class="button" onclick="window.location.href='signal_words.html';">Signal words</button>
+            <button onmouseover="playVerbs()" class="button" onclick="window.location.href='verbs.html';">Verbs</button>
+            <button onmouseover="playSentences()" class="button" onclick="window.location.href='sentences.html';">Sentences</button>
+        </div>
+        <footer>
+            <button onmouseover="playSound()" id="toggleButton" class="footer__button">Grammar hint</button>
+            <table id="rules">
+                <tr>
+                    <th> </th>
+                    <th>Present Simple</th>
+                    <th>Past Simple</th>
+                    <th>Future Simple</th>
+                </tr>
+                <tr>
+                    <td>Утвердительное</td>
+                    <td>V / V+s</td>
+                    <td>Ved / V²</td>
+                    <td>shall / will + V</td>
+                </tr>
+                <tr>
+                    <td>Вопросительное</td>
+                    <td>Do / Does + V?</td>
+                    <td>Did + V?</td>
+                    <td>Am / Is / Are + going to V?</td>
+                </tr>
+                <tr>
+                    <td>Отрицательное</td>
+                    <td>Don't / Doesn't + V</td>
+                    <td>Didn't + V</td>
+                    <td>shall / will + not + V</td>
+                </tr>
+                <tr>
+                    <td>Маркерные слова</td>
+                    <td>every day, always, usually, sometimes, seldom, rarely, never, on Mondays, at weekends</td>
+                    <td>yesterday, last month, 2 days ago, in 1990, then, when I was..., how long ago...?</td>
+                    <td>tomorrow, tonight, next week, in a month, in two days, soon</td>
+                </tr>
+            </table>
+        </footer>
+    </div>
     <audio id="hoverSound" src="sounds/btn_hover.mp3"></audio>
     <audio id="sentences" src="sounds/sentens.mp3"></audio>
     <audio id="verbs" src="sounds/verbs.mp3"></audio>
     <audio id="signal_words" src="sounds/sig_wrds.mp3"></audio>
     <audio id="choose" src="sounds/Choose_topic.mp3"></audio>
     <script>
+        function start() {
+            let menu = document.getElementById("form");
+            let start = document.getElementById("start");
+            start.style.display = "none";
+            menu.style.display = "flex";
+            document.getElementById("choose").currentTime = 0;
+            document.getElementById("choose").play();
+        }
+
         function animateElements() {
             document.body.style.opacity = '1';
             setTimeout(() => {
