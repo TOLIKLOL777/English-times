@@ -12,7 +12,7 @@
 <body onload="animateElements()">
     <button onmouseover="playSound()" class="back-button" onclick="window.location.href='index2.html';">Back</button>
     <div id="start" class="start_menu">
-        <h2>In here you can train some topics of Simple times</h2>
+        <h2>In here you can train some topics of Simple tenses</h2>
         <button id="start_btn" class="start_btn" onclick="start(),playWelcome();">Got it</button>
     </div>
     <div id="form" class="form">
@@ -22,7 +22,7 @@
             <button onmouseover="playVerbs()" class="button" onclick="window.location.href='verbs.html';">Verbs</button>
             <button onmouseover="playSentences()" class="button" onclick="window.location.href='sentences.html';">Sentences</button>
         </div>
-        <footer>
+        <footer class="footer" id="footer">
             <button onmouseover="playSound()" id="toggleButton" class="footer__button">Grammar hint</button>
             <table id="rules">
                 <tr>
@@ -84,11 +84,11 @@
         
         document.getElementById("toggleButton").addEventListener("click", function () {
             let table = document.getElementById("rules");
-            let btnList = document.getElementById("btn_list");
+            let footer = document.getElementById("footer");
             
             let isHidden = table.style.display !== "block";
             table.style.display = isHidden ? "block" : "none";
-            btnList.style.marginBottom = isHidden ? "5%" : "25%";
+            footer.style.position = isHidden ? "static" : "absolute";
 
         });
 

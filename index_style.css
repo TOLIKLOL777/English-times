@@ -110,13 +110,14 @@ h1 {
 }
 
 .section {
-    display: flex;
+    display: none;
     flex-direction: column;
     gap: 20px;
     opacity: 0;
 }
 
 .section.show {
+    display: flex;
     opacity: 1;
 }
 

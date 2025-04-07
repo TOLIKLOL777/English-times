@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="index_style.css">
 </head>
 <body>
-    <h1 id="title" class="title">Welcome to English trainer of simple times</h1>
+    <h1 id="title" class="title">Welcome to English trainer of simple tenses</h1>
     <div id="start" class="start_menu">
-        <button id="start_btn" class="start_btn" onclick="start(),playWelcome();">Start</button>
+        <button id="start_btn" class="start_btn" onclick="playWelcome();">Start</button>
     </div>
     <ul id="menu" class="list">
         <h2 id="title2" class="title">Choose what you want to do</h2>
@@ -35,11 +35,23 @@
             text.classList.toggle("show");
         });
 
-        function start() {
-            let menu = document.getElementById("menu");
+        async function playWelcome() {
+            let audio1 = document.getElementById("welcome");
+            let audio2 = document.getElementById("choose");
             let start = document.getElementById("start");
             start.style.display = "none";
+            let menu = document.getElementById("menu");
             menu.style.display = "flex";
+
+            audio1.currentTime = 0;
+            audio1.play();
+
+            await new Promise(resolve => audio1.onended = resolve);
+            let text = document.getElementById("title2");
+            text.classList.toggle("show");
+            document.getElementById("section").classList.toggle("show");
+            audio2.currentTime = 0;
+            audio2.play();
         }
 
         function playMGS() {
@@ -52,21 +64,6 @@
             let audio = document.getElementById("trainer");
             audio.currentTime = 0;
             audio.play();
-        }
-
-        async function playWelcome() {
-            let audio1 = document.getElementById("welcome");
-            let audio2 = document.getElementById("choose");
-
-            audio1.currentTime = 0;
-            audio1.play();
-
-            await new Promise(resolve => audio1.onended = resolve);
-            let text = document.getElementById("title2");
-            text.classList.toggle("show");
-            document.getElementById("section").classList.toggle("show");
-            audio2.currentTime = 0;
-            audio2.play();
         }
     </script>
 </body>
