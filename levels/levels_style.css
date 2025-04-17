@@ -16,30 +16,6 @@ h1 {
     animation: fadeIn 1s ease-in-out;
 }
 
-.start_btn {
-    font-family: Tektur;
-    position: relative;
-    width: 100px;
-    height: 50px;
-    margin-top: 100px;
-    font-size: 24px;
-    text-align: center;
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-    background: linear-gradient(45deg, #069219, #2abd05);
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 8px;
-    transition: 0.3s ease-in-out;
-    transition: transform 0.3s, background 0.3s;
-}  
-
-.start_btn:hover {
-    background: linear-gradient(45deg, #066412, #27b803);
-    transform: scale(1.1);
-}
-
 .back-button {
     display: flex;
     align-self: self-start;
