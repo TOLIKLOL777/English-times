@@ -11,10 +11,6 @@
 </head>
 <body onload="animateElements()">
     <button onmouseover="playSound()" class="back-button" onclick="window.location.href='index2.html';">Back</button>
-    <div id="start" class="start_menu">
-        <h2>In here you can train some topics of Simple tenses</h2>
-        <button id="start_btn" class="start_btn" onclick="start(),playWelcome();">Got it</button>
-    </div>
     <div id="form" class="form">
         <h1 class="title">Choose the topic to train</h1>
         <div id="btn_list" class="list">
@@ -66,11 +62,10 @@
     <script>
         function start() {
             let menu = document.getElementById("form");
-            let start = document.getElementById("start");
-            start.style.display = "none";
             menu.style.display = "flex";
             document.getElementById("choose").currentTime = 0;
             document.getElementById("choose").play();
+            playWelcome();
         }
 
         function animateElements() {
@@ -115,6 +110,8 @@
             audio.currentTime = 0;
             audio.play();
         }
+
+        start();
     </script>
 </body>
 </html>

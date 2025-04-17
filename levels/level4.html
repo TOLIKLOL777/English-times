@@ -9,7 +9,6 @@
 <body>
     <button onmouseover="playSound()" class="back-button" onclick="window.location.href='../main.html';">Back</button>    
     <h1>Level 4</h1>
-    <button id="start_btn" class="start_btn">Start</button>
     <div id="question-container" class="question-container">
         <div id="question-number" class="question-number"></div>
         <div id="question" class="question"></div>
@@ -57,7 +56,7 @@
             'letbgn', 'letstart'
         ]
 
-        document.getElementById("start_btn").addEventListener("click", function() {
+        function start() {
             let text = document.getElementById("question-container");
             text.style.display = "inline-block";
             document.getElementById("start_btn").style.display = 'none';
@@ -65,7 +64,7 @@
             audio.currentTime = 0;
             audio.play();
             loadQuestion();
-        });
+        };
 
         function shuffleArray(array) {
             return array.sort(() => Math.random() - 0.5);
